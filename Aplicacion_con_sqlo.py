@@ -7,14 +7,6 @@ import tkinter.messagebox
 from tkinter import *
 
 
-
-
-np.productos = {}
-np.inventario = {}
-
-
-
-
 def eliminar():
     seleccionado = datos_mostrar.focus()
     print(seleccionado)
