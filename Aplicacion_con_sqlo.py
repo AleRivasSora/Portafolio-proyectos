@@ -7,13 +7,8 @@ import tkinter.messagebox
 from tkinter import *
 
 
-
-
-np.productos = {}
-np.inventario = {}
-
-
-
+def desactivar_ventana():
+    frame.config()
 
 def eliminar():
     seleccionado = datos_mostrar.focus()
@@ -226,7 +221,7 @@ def ingresar_datos():
         pre = float(precio1.get())
         marc1 = str(marca1.get())
         marc = marc1.capitalize()
-        if nom or marc != "" or pre ==None:
+        if nom and marc != "" or pre ==None:
             conexion=sql.connect("archivos.db")
             conexion.execute("insert into registro_productos(Nombre,Precio,Marca) values (?,?,?)", (nom,pre,marc))
             conexion.commit()
