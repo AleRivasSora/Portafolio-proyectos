@@ -1,10 +1,8 @@
-#import datetime,locale
 import re
 from tkinter import ttk
 import mysql.connector
 import numpy as np
 import pandas as pd
-import os
 import tkinter.messagebox
 from tkinter import *
 #import tkinter as tk
@@ -14,12 +12,14 @@ import random
 import string
 import datetime
 import matplotlib.pyplot as plt
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+from mydb import user as userr
+from mydb import contra as contraa
+
 
 mydb = mysql.connector.connect(
     host="localhost",
-    user="root",
-    password="159852",
+    user=userr,
+    password=contraa,
     port="3306",
     database="app_database"
 )
@@ -89,6 +89,7 @@ class graficos(tk.CTk):
         print(datos1)
         plt.bar(datos1.fechas,datos1.ventas)
         plt.show()
+        cursor.close()
 
     def open_dialog(self):
         seleccionado = clientes_tree.focus()
@@ -153,6 +154,7 @@ class graficos(tk.CTk):
                 estadistica_tree.insert("","end",text=b,values=(np.datos[a][0],np.datos[a][1],np.datos[a][2],np.datos[a][3],suma))
                 b += 1
                 a += 1
+            cursor.close()
         
         def ordernar_por(index1):
             if index1 == 1:
@@ -188,6 +190,7 @@ class graficos(tk.CTk):
                 estadistica_tree.insert("","end",text=b,values=(np.datos[a][0],np.datos[a][1],np.datos[a][2],np.datos[a][3],suma))
                 b += 1
                 a += 1
+            cursor.close()
         estadistica_datos(self)
         
 
@@ -222,6 +225,7 @@ class graficos(tk.CTk):
             plt.pie(df.datos, labels=df.nombres,autopct=lambda p: '{:.0f}'.format(p * total1 / 100))
             plt.legend(df.nombres, title = f"Historial de '{datos[0]}'", loc="lower right",bbox_to_anchor=(0.3, -0.08))
             plt.show()
+            cursor.close()
         except IndexError:
             mensaje = tkinter.messagebox.showerror("ERROR","Seleccione un cliente para poder ver el grafico")
 
@@ -250,6 +254,7 @@ class graficos(tk.CTk):
             a +=1
             b +=1
         entry4_2_buscador.delete(0,END)
+        cursor.close()
 
 def desactivar_clientes():
     clientes_tree.place_forget()
@@ -324,6 +329,7 @@ def historial():
         np.datos[a][4],np.datos[a][5],np.datos[a][6],np.datos[a][7]))
         a +=1
         b +=1
+    cursor.close()
 
 def historial1(valor: int,valor2):
     desactivar_clientes()
@@ -362,7 +368,7 @@ def historial1(valor: int,valor2):
         np.datos[a][4],np.datos[a][5],np.datos[a][6],np.datos[a][7]))
         a +=1
         b +=1
-
+    cursor.close()
 def vaciar_historial():
     fila = historial_tree.get_children()
     for filas in fila:
@@ -419,6 +425,7 @@ class cliente:
             print(idcliente)
             print(idcompra)
             self.limpiar_carrito()
+            cursor.close()
             mensaje = tkinter.messagebox.showinfo("Compra exitosa!","Su compra ha sido procesada con exito!!!")
         except TypeError:
             mensaje = tkinter.messagebox.showerror("ERROR","Su compra no ha podido ser procesada!")
@@ -507,6 +514,7 @@ class cliente:
         carrito_compra.place_configure(x=0,y=285)
         frame3_label1.place_configure(x=530,y=285)
         barra2_2.place_configure(x=510,y=286,height=304)
+        cursor.close()
 
     def buscador3_func(self):
         self.vaciar_tabla_3()
@@ -548,6 +556,7 @@ class cliente:
             for i in datos:
                 carrito_productos.insert("",'end',text=a,values=(datos[a][1],datos[a][2],datos[a][4],datos[a][3],))
                 a +=1
+        cursor.close()
 
     def eliminar_carrito(self):
         seleccionado = carrito_compra.focus()
@@ -558,6 +567,7 @@ class cliente:
         cursor.execute(consulta)
         mydb.commit()
         self.actualizar3_compra()
+        cursor.close()
 
     def agregar_3(self):
         seleccionado = carrito_productos.focus()
@@ -583,6 +593,7 @@ class cliente:
             self.actualizar3_compra()
         elif not isinstance(c,int):
             mensaje = tkinter.messagebox.showerror("Error","Ingrese un dato valido (numeros)")
+        cursor.close()
 
     def actualizar3_compra(self):
         a = 0
@@ -600,6 +611,7 @@ class cliente:
             a +=1
             b +=1
         carrito_compra.insert("","end",text=b,values=("","","","",suma))
+        cursor.close()
 
     def vaciar_tabla3_carrito(self):
         fila = carrito_compra.get_children()
@@ -617,6 +629,7 @@ class cliente:
         cursor.execute(consulta)
         mydb.commit()
         self.actualizar3_compra()
+        cursor.close()
 
     def actualizar_3(self):
         self.vaciar_tabla_3()
@@ -631,7 +644,7 @@ class cliente:
         for i in datos:
             carrito_productos.insert("",'end',text=a,values=(datos[a][1],datos[a][2],datos[a][4],datos[a][3],))
             a +=1
-
+        cursor.close()
 cliente1 = cliente("a","b")
 ################################################################
 #========================Funciones frame 2=====================#
@@ -650,6 +663,7 @@ def user(valor):
     label_usuario.place_configure(x=10,y=40)
     label_nombre.place_configure(x=10,y=70)
     label_cedula.place_configure(x=10,y=110)
+    cursor.close()
 
 def buscador_2():
     vaciar_tabla()
@@ -682,6 +696,7 @@ def buscador_2():
             print(i)
             mostrar_productos.insert("",'end',text=a,values=(datos[a][1],datos[a][2],datos[a][4],datos[a][3],))
             a +=1
+    cursor.close()
 
 def eliminar_producto():
     seleccionado = mostrar_productos.focus()
@@ -693,6 +708,7 @@ def eliminar_producto():
     cursor.execute(consulta)
     mydb.commit()
     actualizar()
+    cursor.close()
 
 def guardar_edicion():
     nom = entry2_1.get()
@@ -721,6 +737,7 @@ def guardar_edicion():
     entry2_4.delete(0,END)
     entry2_5.delete(0,END)
     actualizar()
+    cursor.close()
 
 def editar_producto():
     frame2_guardarPE.configure(state=NORMAL)
@@ -761,6 +778,7 @@ def save_m():
         mydb.commit()
         entry2_5.delete(0,END)
     actualizar()
+    cursor.close()
 
 def add_p():
     activar_entry2()
@@ -808,6 +826,7 @@ def add_p():
         entry2_4.delete(0,END)
         entry2_5.delete(0,END)
         actualizar()
+    cursor.close()
 
 def actualizar():
     vaciar_tabla()
@@ -823,6 +842,7 @@ def actualizar():
         print(i)
         mostrar_productos.insert("",'end',text=a,values=(datos[a][1],datos[a][2],datos[a][4],datos[a][3],))
         a +=1
+    cursor.close()
 
 def actualizar_nombre():
     vaciar_tabla()
@@ -838,6 +858,7 @@ def actualizar_nombre():
         print(i)
         mostrar_productos.insert("",'end',text=a,values=(datos[a][1],datos[a][2],datos[a][4],datos[a][3],))
         a +=1
+    cursor.close()
 
 def actualizar_precio():
     vaciar_tabla()
@@ -853,6 +874,7 @@ def actualizar_precio():
         print(i)
         mostrar_productos.insert("",'end',text=a,values=(datos[a][1],datos[a][2],datos[a][4],datos[a][3],))
         a +=1
+    cursor.close()
 
 def actualizar_marca():
     vaciar_tabla()
@@ -868,6 +890,7 @@ def actualizar_marca():
         print(i)
         mostrar_productos.insert("",'end',text=a,values=(datos[a][1],datos[a][2],datos[a][4],datos[a][3],))
         a +=1
+    cursor.close()
 
 def actualizar_inventario():
     vaciar_tabla()
@@ -883,6 +906,7 @@ def actualizar_inventario():
         print(i)
         mostrar_productos.insert("",'end',text=a,values=(datos[a][1],datos[a][2],datos[a][4],datos[a][3],))
         a +=1
+    cursor.close()
 
 def activar_marca():
     frame2_guardarP.configure(state=DISABLED)
@@ -939,6 +963,7 @@ def login():
             mensaje.place_forget()
             break
     actualizar()
+    cursor.close()
 
 def create_login():
     entry1_1.delete(0,END)
@@ -984,6 +1009,7 @@ def crear_usuario():
             entry5_4.delete(0,END)
             entry5_5.delete(0,END)
             frame1.tkraise()
+        cursor.close()
     except ValueError:
         mensaje1 = tkinter.messagebox.showerror(title="error",message="Rellene los campos")
 
