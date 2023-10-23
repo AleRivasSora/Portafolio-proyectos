@@ -1,0 +1,27 @@
+Título del Proyecto: Sistema de Registro de Ventas
+
+Descripción:
+Desarrollé un Sistema de Registro de Ventas, una aplicación de software diseñada para gestionar y automatizar el proceso 
+de seguimiento y registro de ventas en un entorno de supermercado. Esta aplicación proporciona una solución eficiente y efectiva para 
+el seguimiento de las transacciones diarias y la gestión del inventario de productos.
+
+Características Destacadas:
+
+Registro de Ventas Diarias: La aplicación permite a los usuarios registrar todas las ventas realizadas en un día,
+incluidos detalles como los productos vendidos, las cantidades y los precios.
+
+Gestión de Inventario: Permite llevar un seguimiento actualizado de los niveles de inventario de productos,
+lo que facilita la reposición de stock y evita la escasez de productos.
+
+Base de Datos Relacional: La aplicación utiliza una base de datos relacional SQL para almacenar de manera segura y eficiente
+la información de ventas y el inventario de productos.
+
+Interfaz Gráfica Intuitiva: Incorpora una interfaz de usuario amigable y fácil de usar,desarrollada utilizando 
+librerías como Tkinter para Python, que permite a los usuarios registrar y visualizar las ventas de manera eficaz.
+
+Visualización de Estadísticas: Utiliza librerías como NumPy y Matplotlib para generar gráficos y estadísticas 
+que ayudan a los usuarios a analizar las tendencias de ventas y la información relacionada.
+
+Este proyecto demuestra mi capacidad para desarrollar soluciones informáticas que optimizan procesos de negocio, 
+mejoran la eficiencia y facilitan el seguimiento de datos importantes. También muestra mi experiencia en el desarrollo de
+aplicaciones de escritorio y el uso de tecnologías clave para la visualización de datos.
